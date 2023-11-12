@@ -8,9 +8,9 @@ namespace Recipe_Maker.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly TestDal _testDal;
+        private readonly UserRepository _testDal;
 
-        public HomeController(ILogger<HomeController> logger, TestDal testDal)
+        public HomeController(ILogger<HomeController> logger, UserRepository testDal)
         {
             _logger = logger;
             _testDal = testDal;
@@ -19,7 +19,7 @@ namespace Recipe_Maker.Controllers
         public IActionResult Index()
         {
             var userViewModels = new List<User>();
-            var users = _testDal.GetAllUsers();
+            var users = _testDal.LoadAllUsers();
             foreach (var user in users)
             {
                 userViewModels.Add(new User()
