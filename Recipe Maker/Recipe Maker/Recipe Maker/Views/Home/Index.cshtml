@@ -1,12 +1,12 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@model List<Recipe_Maker.Models.User>
+@model BusinessObjects.UserObject
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>
-        @if (Model.Any() == false)
+        @if (Model.Username == null)
         {
             <div class="card">
                 <div class="card-body">
@@ -16,19 +16,16 @@
         }
         else
         {
-            @foreach (var user in Model)
-            {
-                <div class="card my-3 p-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">@user.Username</h4>
-                            <p class="card-text">@user.Id</p>
-                            <p class="card-text">@user.RoleId</p>
-                        </div>
+            <div class="card my-3 p-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">@Model.Username</h4>
+                        <p class="card-text">@Model.Id</p>
+                        <p class="card-text">@Model.RoleId</p>
                     </div>
-
                 </div>
-            }
+
+            </div>
         }
     </p>
 </div>

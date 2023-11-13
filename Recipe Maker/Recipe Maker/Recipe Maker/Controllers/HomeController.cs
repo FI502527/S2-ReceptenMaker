@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Recipe_Maker.Models;
 using DAL;
+using BusinessObjects;
 
 namespace Recipe_Maker.Controllers
 {
@@ -18,18 +19,8 @@ namespace Recipe_Maker.Controllers
 
         public IActionResult Index()
         {
-            var userViewModels = new List<User>();
-            var users = _testDal.LoadAllUsers();
-            foreach (var user in users)
-            {
-                userViewModels.Add(new User()
-                {
-                    Id = user.Id,
-                    Username = user.Username,
-                    RoleId = user.RoleId
-                });
-            }
-            return View(userViewModels);
+            UserObject user = _testDal.LoadAllUsers();
+            return View(user);
         }
 
         public IActionResult Privacy()
