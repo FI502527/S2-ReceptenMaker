@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Recipe_Maker.Models;
-using DAL;
+using Business;
 using BusinessObjects;
 
 namespace Recipe_Maker.Controllers
@@ -9,18 +9,18 @@ namespace Recipe_Maker.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly UserRepository _testDal;
+        private readonly UserService _userService;
 
-        public HomeController(ILogger<HomeController> logger, UserRepository testDal)
+        public HomeController(ILogger<HomeController> logger, UserService userService)
         {
             _logger = logger;
-            _testDal = testDal;
+            _userService = userService;
         }
 
         public IActionResult Index()
         {
-            UserObject user = _testDal.LoadAllUsers();
-            return View(user);
+            List<UserObject> users = _userService.GetAllUsers();
+            return View(users);
         }
 
         public IActionResult Privacy()

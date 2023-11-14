@@ -1,10 +1,11 @@
+using Business;
 using DAL;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddTransient<UserRepository>();
+builder.Services.AddTransient<UserService>();
 
 var app = builder.Build();
 
