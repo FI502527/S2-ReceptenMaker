@@ -11,7 +11,6 @@ namespace DAL
 {
     public class UserRepository
     {
-        private readonly IConfiguration
         public UserObject LoadAllUsers()
         {
             Connection conn = new();
