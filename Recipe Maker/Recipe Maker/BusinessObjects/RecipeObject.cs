@@ -14,6 +14,10 @@ namespace BusinessObjects
         public List<IngredientObject> Ingredients { get; private set; }
         public void AddIngredients(IngredientObject ingredient)
         {
+            if (Ingredients == null)
+            {
+                Ingredients = new List<IngredientObject>();
+            }
             Ingredients.Add(ingredient);
         }
         public void SetOwner(int owner)

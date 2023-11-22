@@ -7,6 +7,11 @@
 <div class="text-center">
     <h1 class="display-4">Recipes</h1>
     <p>
+        <button type="button" class="btn btn-primary" asp-action="Add" asp-controller="Recipe">
+            Add recipe
+        </button>
+    </p>
+    <p>
         @if (Model.Count < 1)
         {
             <div class="card">
@@ -23,8 +28,12 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">@recipe.Name</h4>
-                            <p class="card-text">@recipe.Id</p>
-                            <p class="card-text">@recipe.Owner</p>
+                            <p class="card-text">Id = @recipe.Id</p>
+                            <p class="card-text">Ingredients:</p>
+                            @foreach(IngredientObject ingredient in recipe.Ingredients)
+                            {
+                                <p class="card-text">@ingredient.Name</p>
+                            }
                         </div>
                     </div>
                 </div>

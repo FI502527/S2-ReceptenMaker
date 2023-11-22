@@ -16,5 +16,9 @@ namespace Recipe_Maker.Controllers
             List<RecipeObject> recipes = _recipeService.GetAllRecipes();
             return View(recipes);
         }
+        public IActionResult Add()
+        {
+            return View();
+        }
     }
 }
