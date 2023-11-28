@@ -9,14 +9,7 @@ namespace Business
         public bool LoginCheck(string username, string password)
         {
             UserObject user = userRepository.LoadUserByName(username.ToLower());
-            if(password == user.Password)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return password == user.Password;
         }
         public UserObject GetUserByName(string name)
         {
