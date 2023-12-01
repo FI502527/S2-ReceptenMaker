@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using BusinessObjects;
 using Microsoft;
 
@@ -11,19 +13,19 @@ namespace DAL
 {
     public class UserRepository
     {
-        public List<UserObject> LoadAllUsers()
+        public List<User> LoadAllUsers()
         {
             Connection conn = new();
             SqlConnection sqlConnection = conn.GetConnection();
             SqlCommand command = new SqlCommand("SELECT * FROM Users;", sqlConnection);
-            List<UserObject> allUsers = new List<UserObject>();
+            List<User> allUsers = new List<User>();
             sqlConnection.Open();
             SqlDataReader DataReader = command.ExecuteReader();
             if (DataReader.HasRows)
             {
                 while (DataReader.Read())
                 {
-                    UserObject userObject = new UserObject();
+                    User userObject = new User();
                     userObject.SetUserId(DataReader.GetInt32(0));
                     userObject.SetUsername(DataReader.GetString(1));
                     userObject.SetRoleId(DataReader.GetInt32(2));
@@ -34,10 +36,10 @@ namespace DAL
             sqlConnection.Close();
             return allUsers;
         }
-        public UserObject LoadUserByName(string name)
+        public User LoadUserByName(string name)
         {
-            UserObject userObject = new UserObject();
-            Connection con = new();
+            User userObject = new User();
+            Connection con = new Connection();
             SqlConnection sqlConnection = con.GetConnection();
             SqlCommand command = new SqlCommand($"SELECT * FROM Users WHERE username = '{name}';", sqlConnection);
             sqlConnection.Open();
@@ -56,6 +58,23 @@ namespace DAL
             DataReader.Close();
             sqlConnection.Close();
             return userObject;
+        }
+        public bool AddUser(User newUser)
+        {
+            Connection con = new Connection();
+            SqlConnection sqlConnection = con.GetConnection();
+            SqlCommand command = new SqlCommand($"INSERT INTO Users (username, roleId, password) VALUES ('{newUser.Username}', 2, '{newUser.Password}');", sqlConnection);
+            sqlConnection.Open();
+            int succesful = command.ExecuteNonQuery();
+            sqlConnection.Close();
+            if (succesful > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

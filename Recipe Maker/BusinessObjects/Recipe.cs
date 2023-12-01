@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace BusinessObjects
 {
-    public class RecipeObject
+    public class Recipe
     {
         public int Id { get; private set; }
         public string Name { get; private set; }
         public int Owner { get; private set; }
-        public List<IngredientObject> Ingredients { get; private set; }
-        public void AddIngredients(IngredientObject ingredient)
+        public List<Ingredient> Ingredients { get; private set; }
+        public void AddIngredients(Ingredient ingredient)
         {
             if (Ingredients == null)
             {
-                Ingredients = new List<IngredientObject>();
+                Ingredients = new List<Ingredient>();
             }
             Ingredients.Add(ingredient);
         }

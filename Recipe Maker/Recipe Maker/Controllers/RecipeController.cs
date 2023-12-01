@@ -13,7 +13,7 @@ namespace Recipe_Maker.Controllers
         }
         public IActionResult Index()
         {
-            List<RecipeObject> recipes = _recipeService.GetAllRecipes();
+            List<Recipe> recipes = _recipeService.GetAllRecipes();
             return View(recipes);
         }
         public IActionResult Add()

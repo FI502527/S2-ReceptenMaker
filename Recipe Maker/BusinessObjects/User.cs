@@ -1,13 +1,13 @@
 ﻿namespace BusinessObjects
 {
-    public class UserObject
+    public class User
     {
         public int Id { get; private set; }
         public string Username { get; private set; }
         public int RoleId { get; private set; }
         public string Password { get; private set; }
 
-        public UserObject(int id, string username, int roleId, string password)
+        public User(int id, string username, int roleId, string password)
         {
             Id = id;
             Username = username;
@@ -15,14 +15,20 @@
             Password = password;
         }
 
-        public UserObject(string username, int roleId)
+        public User(string username, int roleId)
         {
             Username = username;
             RoleId = roleId;
         }
-        public UserObject()
+        public User()
         {
 
+        }
+        public void CreateUser(string username, int roleId, string password)
+        {
+            Username = username;
+            RoleId = roleId;
+            Password = password;
         }
         public void SetUserId(int userId)
         {

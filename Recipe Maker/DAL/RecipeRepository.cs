@@ -11,26 +11,26 @@ namespace DAL
 {
     public class RecipeRepository
     {
-        public List<RecipeObject> LoadAllRecipes()
+        public List<Recipe> LoadAllRecipes()
         {
             Connection conn = new();
             SqlConnection sqlConnection = conn.GetConnection();
             SqlCommand command = new SqlCommand("SELECT * FROM Recipes;", sqlConnection);
-            List<RecipeObject> allRecipes = new List<RecipeObject>();
+            List<Recipe> allRecipes = new List<Recipe>();
             sqlConnection.Open();
             SqlDataReader dataReaderRecipes = command.ExecuteReader();
             if (dataReaderRecipes.HasRows)
             {
                 while (dataReaderRecipes.Read())
                 {
-                    RecipeObject recipeObject = new RecipeObject();
+                    Recipe recipeObject = new Recipe();
                     recipeObject.SetId(dataReaderRecipes.GetInt32(0));
                     recipeObject.SetName(dataReaderRecipes.GetString(1));
                     recipeObject.SetOwner(dataReaderRecipes.GetInt32(2));
-                    RecipeIngredientsObject recipeIngredients = GetRecipeIngredients(recipeObject.Id);
+                    RecipeIngredientRelation recipeIngredients = GetRecipeIngredients(recipeObject.Id);
                     foreach(int ingredientId in recipeIngredients.IngredientId)
                     {
-                        IngredientObject ingredient = GetIngredientById(ingredientId);
+                        Ingredient ingredient = GetIngredientById(ingredientId);
                         recipeObject.AddIngredients(ingredient);
                     }
                     allRecipes.Add(recipeObject);
@@ -40,14 +40,14 @@ namespace DAL
             sqlConnection.Close();
             return allRecipes;
         }
-        public RecipeIngredientsObject GetRecipeIngredients(int id)
+        public RecipeIngredientRelation GetRecipeIngredients(int id)
         {
             Connection conn = new();
             SqlConnection sqlConnection = conn.GetConnection();
             SqlCommand commandIngredients = new SqlCommand("SELECT * FROM RecipeIngredients WHERE recipeId = " + id + ";", sqlConnection);
             sqlConnection.Open();
             SqlDataReader dataReaderIngredients = commandIngredients.ExecuteReader();
-            RecipeIngredientsObject recipeIngredients = new RecipeIngredientsObject();
+            RecipeIngredientRelation recipeIngredients = new RecipeIngredientRelation();
             recipeIngredients.SetRecipeId(id);
             if (dataReaderIngredients.HasRows)
             {
@@ -61,14 +61,14 @@ namespace DAL
             sqlConnection.Close();
             return recipeIngredients;
         }
-        public RecipeObject GetRecipeById(int id)
+        public Recipe GetRecipeById(int id)
         {
             Connection conn = new();
             SqlConnection sqlConnection = conn.GetConnection();
             SqlCommand recipeInfo = new SqlCommand("SELECT * FROM Recipe WHERE id = " + id + ";", sqlConnection);
             sqlConnection.Open();
             SqlDataReader dataReaderRecipeInfo = recipeInfo.ExecuteReader();
-            RecipeObject recipe = new RecipeObject();
+            Recipe recipe = new Recipe();
             if (dataReaderRecipeInfo.HasRows)
             {
                 while (dataReaderRecipeInfo.Read())
@@ -81,14 +81,14 @@ namespace DAL
             sqlConnection.Close();
             return recipe;
         }
-        public IngredientObject GetIngredientById(int id)
+        public Ingredient GetIngredientById(int id)
         {
             Connection conn = new();
             SqlConnection sqlConnection = conn.GetConnection();
             SqlCommand ingredientInfo = new SqlCommand("SELECT * FROM Ingredients WHERE id = " + id + ";", sqlConnection);
             sqlConnection.Open();
             SqlDataReader dataReaderIngredientInfo = ingredientInfo.ExecuteReader();
-            IngredientObject ingredient = new IngredientObject();
+            Ingredient ingredient = new Ingredient();
             if (dataReaderIngredientInfo.HasRows)
             {
                 while (dataReaderIngredientInfo.Read())

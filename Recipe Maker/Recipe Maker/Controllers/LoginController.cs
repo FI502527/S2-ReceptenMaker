@@ -7,28 +7,30 @@ namespace Recipe_Maker.Controllers
 {
     public class LoginController : Controller
     {
+        UserService userService = new UserService();
         public IActionResult Index()
         {
             if(TempData["Error"] != null)
             {
                 ViewBag.Message = TempData["Error"];
+            }else if (TempData["Register"] != null)
+            {
+                ViewBag.Message = "Registered succesfully!";
             }
             return View();
         }
         public IActionResult LoggedIn()
         {
-            UserService userService = new UserService();
             string username = TempData["Username"].ToString();
-            UserObject user = userService.GetUserByName(username);
+            User user = userService.GetUserByName(username);
             return View(user);
         }
         public IActionResult LoginCheck(string username, string password)
         {
-            UserService userService = new UserService();
-            bool check = userService.LoginCheck(username, password);
-            if(check)
+            bool passwordMatch = userService.LoginCheck(username, password);
+            if(passwordMatch)
             {
-                UserObject user = userService.GetUserByName(username);
+                User user = userService.GetUserByName(username);
                 TempData["Username"] = user.Username;
                 return RedirectToAction("LoggedIn");
             }
@@ -36,6 +38,28 @@ namespace Recipe_Maker.Controllers
             {
                 TempData["Error"] = "Your username doesn't match your password!";
                 return RedirectToAction("Index");
+            }
+        }
+        public IActionResult Register()
+        {
+            return View();
+        }
+        public IActionResult RegisterUser(string username, string password)
+        {
+            User newUser = new User();
+            newUser.CreateUser(username, 2, password);
+
+            bool succes = userService.AddUser(newUser);
+            
+            if(succes)
+            {
+                TempData["Register"] = "Succes";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["Register"] = "Fail";
+                return RedirectToAction("Register");
             }
         }
     }

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace BusinessObjects
 {
-    public class RecipeIngredientsObject
+    public class RecipeIngredientRelation
     {
         public int RecipeId { get; private set; }
         public List<int>? IngredientId { get; private set; }
 
-        public RecipeIngredientsObject()
+        public RecipeIngredientRelation()
         {
             IngredientId = new List<int>();
         }

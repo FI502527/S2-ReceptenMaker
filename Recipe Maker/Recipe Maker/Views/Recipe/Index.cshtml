@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Recipes";
 }
-@model List<BusinessObjects.RecipeObject>
+@model List<BusinessObjects.Recipe>
 
 <div class="text-center">
     <h1 class="display-4">Recipes</h1>
@@ -22,7 +22,7 @@
         }
         else
         {
-            @foreach (RecipeObject recipe in Model)
+            @foreach (Recipe recipe in Model)
             {
                 <div class="card my-3 p-3">
                     <div class="card">
@@ -30,7 +30,7 @@
                             <h4 class="card-title">@recipe.Name</h4>
                             <p class="card-text">Id = @recipe.Id</p>
                             <p class="card-text">Ingredients:</p>
-                            @foreach(IngredientObject ingredient in recipe.Ingredients)
+                            @foreach(Ingredient ingredient in recipe.Ingredients)
                             {
                                 <p class="card-text">@ingredient.Name</p>
                             }

@@ -19,7 +19,7 @@ namespace Recipe_Maker.Controllers
 
         public IActionResult Index()
         {
-            List<UserObject> users = _userService.GetAllUsers();
+            List<BusinessObjects.User> users = _userService.GetAllUsers();
             return View(users);
         }
 

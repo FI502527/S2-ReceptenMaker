@@ -11,9 +11,9 @@ namespace Business
     public class RecipeService
     {
         RecipeRepository recipeRepository = new RecipeRepository();
-        public List<RecipeObject> GetAllRecipes()
+        public List<Recipe> GetAllRecipes()
         {
-            List<RecipeObject> allRecipes = recipeRepository.LoadAllRecipes();
+            List<Recipe> allRecipes = recipeRepository.LoadAllRecipes();
             return allRecipes;
         }
     }

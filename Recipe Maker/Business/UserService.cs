@@ -8,18 +8,22 @@ namespace Business
         UserRepository userRepository = new UserRepository();
         public bool LoginCheck(string username, string password)
         {
-            UserObject user = userRepository.LoadUserByName(username.ToLower());
+            User user = userRepository.LoadUserByName(username.ToLower());
             return password == user.Password;
         }
-        public UserObject GetUserByName(string name)
+        public User GetUserByName(string name)
         {
-            UserObject user = userRepository.LoadUserByName(name.ToLower());
+            User user = userRepository.LoadUserByName(name.ToLower());
             return user;
         }
-        public List<UserObject> GetAllUsers()
+        public List<User> GetAllUsers()
         {
-            List<UserObject> users = userRepository.LoadAllUsers();
+            List<User> users = userRepository.LoadAllUsers();
             return users;
+        }
+        public bool AddUser(User newUser)
+        {
+            return userRepository.AddUser(newUser);
         }
     }
 }
