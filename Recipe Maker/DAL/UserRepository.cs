@@ -38,7 +38,7 @@ namespace DAL
         }
         public User LoadUserByName(string name)
         {
-            User userObject = new User();
+            User user = new User();
             Connection con = new Connection();
             SqlConnection sqlConnection = con.GetConnection();
             SqlCommand command = new SqlCommand($"SELECT * FROM Users WHERE username = '{name}';", sqlConnection);
@@ -48,16 +48,16 @@ namespace DAL
             {
                 while (DataReader.Read())
                 {
-                    
-                    userObject.SetUserId(DataReader.GetInt32(0));
-                    userObject.SetUsername(DataReader.GetString(1));
-                    userObject.SetRoleId(DataReader.GetInt32(2));
-                    userObject.SetPassword(DataReader.GetString(3));
+
+                    user.SetUserId(DataReader.GetInt32(0));
+                    user.SetUsername(DataReader.GetString(1));
+                    user.SetRoleId(DataReader.GetInt32(2));
+                    user.SetPassword(DataReader.GetString(3));
                 }
             }
             DataReader.Close();
             sqlConnection.Close();
-            return userObject;
+            return user;
         }
         public bool AddUser(User newUser)
         {
