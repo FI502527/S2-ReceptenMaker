@@ -13,7 +13,7 @@ namespace DAL
 {
     public class Connection
     {
-        private static string connectionString = "Data Source=localhost\\MSSQLSERVER01;Initial Catalog=RecipeMaker;Integrated Security=SSPI;";
+        private static string connectionString = "Data Source=LAPTOP-2LRUOKMM;Initial Catalog=RecipeMaker;Integrated Security=SSPI;";
         private SqlConnection connection = new SqlConnection(connectionString);
 
         public SqlConnection GetConnection()

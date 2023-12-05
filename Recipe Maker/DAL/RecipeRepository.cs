@@ -6,10 +6,11 @@ using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
+using Interfaces;
 
 namespace DAL
 {
-    public class RecipeRepository
+    public class RecipeRepository : IRecipeRepository
     {
         public List<Recipe> LoadAllRecipes()
         {

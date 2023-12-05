@@ -7,9 +7,9 @@
 <div class="text-center">
     <h1 class="display-4">Recipes</h1>
     <p>
-        <button type="button" class="btn btn-primary" asp-action="Add" asp-controller="Recipe">
+        <a class="btn btn-primary" asp-action="Add" asp-controller="Recipe">
             Add recipe
-        </button>
+        </a>
     </p>
     <p>
         @if (Model.Count < 1)

@@ -1,13 +1,20 @@
 ﻿using Business;
 using BusinessObjects;
+using Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Recipe_Maker.Controllers
 {
     public class LoginController : Controller
     {
-        UserService userService = new UserService();
+        private readonly IUserRepository UserRepository;
+        UserService userService;
+        public LoginController(IUserRepository userRepository)
+        {
+            UserRepository = userRepository;
+            userService = new UserService(userRepository);
+        }
+
         public IActionResult Index()
         {
             if(TempData["Error"] != null)

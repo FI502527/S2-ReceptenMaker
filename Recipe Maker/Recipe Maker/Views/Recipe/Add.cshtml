@@ -1,15 +1,21 @@
-﻿@using BusinessObjects;
-@{
+﻿@{
     ViewData["Title"] = "Add recipe";
 }
 
 <div class="text-center">
     <h1 class="display-4">Add recipe</h1>
-    <form>
+    <form asp-action="AddRecipe" asp-controller="Recipe" method="POST">
       <label for="RecipeName">Recipe name:</label><br>
       <input type="text" id="RecipeName" name="RecipeName" value="Name" required><br>
       <label for="desc">Description:</label><br>
       <input type="text" id="desc" name="desc" value="Description"><br><br>
       <input type="submit" value="Submit">
     </form>
+    <br />
+    @ViewBag.Message
+    <br />
+
+    <a class="btn btn-primary" asp-action="Index" asp-controller="Recipe">
+        Go back
+    </a>
 </div>

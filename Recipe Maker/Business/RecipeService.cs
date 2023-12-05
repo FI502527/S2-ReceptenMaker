@@ -1,5 +1,5 @@
 ﻿using BusinessObjects;
-using DAL;
+using Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace Business
 {
     public class RecipeService
     {
-        RecipeRepository recipeRepository = new RecipeRepository();
+        private readonly IRecipeRepository recipeRepository;
         public List<Recipe> GetAllRecipes()
         {
             List<Recipe> allRecipes = recipeRepository.LoadAllRecipes();

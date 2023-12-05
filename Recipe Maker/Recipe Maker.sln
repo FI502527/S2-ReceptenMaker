@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Business.csproj", "{D16BCA66-4775-4B9A-B1B3-E56411A5D780}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessObjects", "BusinessObjects\BusinessObjects.csproj", "{43B3AC15-7A1F-4D8D-9F91-BF165D7C1D8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessModels", "BusinessObjects\BusinessModels.csproj", "{43B3AC15-7A1F-4D8D-9F91-BF165D7C1D8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interfaces\Interfaces.csproj", "{7B7B140B-F34A-49A3-990C-538D73DB0430}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interfaces", "Interfaces\Interfaces.csproj", "{7B7B140B-F34A-49A3-990C-538D73DB0430}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

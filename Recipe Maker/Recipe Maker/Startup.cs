@@ -1,4 +1,4 @@
-﻿using DAL;
+﻿using Interfaces;
 
 namespace Recipe_Maker
 {
@@ -8,7 +8,7 @@ namespace Recipe_Maker
         {
             // Other service registrations...
 
-            services.AddScoped<UserRepository>();
+            services.AddScoped<IUserRepository>();
 
             // Additional registrations...
         }

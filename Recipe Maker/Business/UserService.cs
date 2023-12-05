@@ -1,11 +1,15 @@
 ﻿using BusinessObjects;
-using DAL;
+using Interfaces;
 
 namespace Business
 {
     public class UserService
     {
-        UserRepository userRepository = new UserRepository();
+        private readonly IUserRepository userRepository;
+        public UserService(IUserRepository userRepository)
+        {
+            this.userRepository = userRepository;
+        }
         public bool LoginCheck(string username, string password)
         {
             User user = userRepository.LoadUserByName(username.ToLower());

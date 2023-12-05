@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using BusinessObjects;
 using Microsoft;
+using Interfaces;
 
 namespace DAL
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         public List<User> LoadAllUsers()
         {

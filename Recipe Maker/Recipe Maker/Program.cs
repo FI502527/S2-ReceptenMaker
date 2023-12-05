@@ -1,4 +1,5 @@
 using Business;
+using Interfaces;
 using DAL;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<UserService>();
 builder.Services.AddTransient<RecipeService>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IRecipeRepository, RecipeRepository>();
 
 var app = builder.Build();
 
