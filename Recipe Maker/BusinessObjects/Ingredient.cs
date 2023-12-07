@@ -23,5 +23,25 @@ namespace BusinessObjects
         {
             Description = description;
         }
+        public void SetInfo(int id, string name, string description)
+        {
+            Id = id;
+            Name = name;
+            if(description != null)
+            {
+                Description = description;
+            }
+        }
+        public bool DescriptionCheck()
+        {
+            if (string.IsNullOrEmpty(Description))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

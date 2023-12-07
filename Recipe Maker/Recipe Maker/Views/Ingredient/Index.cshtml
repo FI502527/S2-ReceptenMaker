@@ -1,5 +1,40 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using BusinessObjects;
 @{
+    ViewData["Title"] = "Ingredient";
 }
+@model List<BusinessObjects.Ingredient>
+
+<div class="text-center">
+    <h1 class="display-4">Ingredient</h1>
+    <p>
+        <a class="btn btn-primary" asp-action="Add" asp-controller="Ingredient">
+            Add ingredient
+        </a>
+    </p>
+    <p>
+        @if (Model.Count < 1)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <p>There are no ingredients.</p>
+                </div>
+            </div>
+        }
+        else
+        {
+            @foreach (Ingredient ingredient in Model)
+            {
+                <div class="card my-3 p-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">@ingredient.Name</h4>
+                            <p class="card-text">Id = @ingredient.Id</p>
+                            <p class="card-text">@ingredient.Description</p>
+                            <p class="card-text"><a class="btn btn-primary" asp-route-id="@ingredient.Id" asp-action="Edit" asp-controller="Ingredient">Edit</a><a class="btn btn-primary" asp-route-id="@ingredient.Id" asp-action="Delete" asp-controller="Ingredient">Delete</a></p>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </p>
+</div>

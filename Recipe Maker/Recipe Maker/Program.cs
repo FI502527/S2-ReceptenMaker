@@ -8,8 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<UserService>();
 builder.Services.AddTransient<RecipeService>();
+builder.Services.AddTransient<IngredientService>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IRecipeRepository, RecipeRepository>();
+builder.Services.AddTransient<IIngredientRepository, IngredientRepository>();
 
 var app = builder.Build();
 
