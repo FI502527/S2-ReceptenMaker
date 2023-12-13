@@ -13,5 +13,6 @@ namespace Interfaces
         public bool AddIngredient(Ingredient ingredient);
         public Ingredient LoadIngredientById(int id);
         public bool UpdateIngredient(Ingredient ingredient);
+        public bool DeleteIngredient(int id);
     }
 }

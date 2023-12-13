@@ -14,14 +14,40 @@ namespace Recipe_Maker.Controllers
         }
         public IActionResult Index()
         {
+            if (TempData.ContainsKey("IngredientEdit") || TempData.ContainsKey("IngredientDelete"))
+            {
+                if (Convert.ToBoolean(TempData["IngredientEdit"]))
+                {
+                    ViewBag.Message = "Your ingredient has been edited!";
+                }
+                else
+                {
+                    ViewBag.Message = "Your ingredient has not been edited!";
+                }
+                if (Convert.ToBoolean(TempData["IngredientDelete"]))
+                {
+                    ViewBag.Message = "Your ingredient has been deleted!";
+                }
+                else
+                {
+                    ViewBag.Message = "Your ingredient has not been deleted!";
+                }
+            }
             List<Ingredient> allIngredients = ingredientService.GetAllIngredients();
             return View(allIngredients);
         }
         public IActionResult Add()
         {
-            if (TempData["IngredientAdd"].ToString() == "True")
+            if (TempData.ContainsKey("IngredientAdd"))
             {
-                ViewBag.Message = "Your ingredient has been added!";
+                if (Convert.ToBoolean(TempData["IngredientAdd"]))
+                {
+                    ViewBag.Message = "Your ingredient has been added!";
+                }
+                else
+                {
+                    ViewBag.Message = "Your ingredient has not been added!";
+                }
             }
             return View();
         }
@@ -33,20 +59,16 @@ namespace Recipe_Maker.Controllers
             bool addCheck = ingredientService.AddIngredient(ingredient);
             if (addCheck)
             {
-                TempData["IngredientAdd"] = "Succes";
+                TempData["IngredientAdd"] = true;
             }
             else
             {
-                TempData["IngredientAdd"] = "Fail";
+                TempData["IngredientAdd"] = false;
             }
             return RedirectToAction("Add");
         }
         public IActionResult Edit(int id)
         {
-            if (TempData["IngredientEdit"].ToString() == "True")
-            {
-                ViewBag.Message = "Your ingredient has been edited!";
-            }
             Ingredient ingredient = ingredientService.GetIngredientById(id);
             return View(ingredient);
         }
@@ -56,15 +78,22 @@ namespace Recipe_Maker.Controllers
             ingredient.SetName(name);
             ingredient.SetDescription(desc);
             bool editCheck = ingredientService.EditIngredient(ingredient);
-            if (editCheck)
+            TempData["IngredientEdit"] = editCheck;
+            return RedirectToAction("Index");
+        }
+        public IActionResult Delete(int id)
+        {
+            bool deleteCheck = ingredientService.DeleteIngredient(id);
+            TempData["DeleteCheck"] = deleteCheck;
+            if (deleteCheck)
             {
-                TempData["IngredientEdit"] = "Succes";
+                TempData["IngredientDelete"] = true;
             }
             else
             {
-                TempData["IngredientEdit"] = "Fail";
+                TempData["IngredientDelete"] = false;
             }
-            return RedirectToAction("Edit");
+            return RedirectToAction("Index");
         }
     }
 }

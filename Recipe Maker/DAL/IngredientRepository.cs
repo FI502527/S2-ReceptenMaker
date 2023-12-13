@@ -85,18 +85,19 @@ namespace DAL
         {
             Connection con = new Connection();
             SqlConnection sqlConnection = con.GetConnection();
-            SqlCommand commandWithDesc = new SqlCommand($"UPDATE Ingredients SET name = '{ingredient.Name}' WHERE id = {ingredient.Id};", sqlConnection);
-            SqlCommand commandWithoutDesc = new SqlCommand($"UPDATE Ingredients SET name = '{ingredient.Name}', description = '{ingredient.Description}' WHERE id = {ingredient.Id};", sqlConnection);
+            SqlCommand command = new SqlCommand($"UPDATE Ingredients SET name = '{ingredient.Name}', description = '{ingredient.Description}' WHERE id = {ingredient.Id}", sqlConnection);
             sqlConnection.Open();
-            int succesful;
-            if (ingredient.DescriptionCheck())
-            {
-                succesful = commandWithDesc.ExecuteNonQuery();
-            }
-            else
-            {
-                succesful = commandWithoutDesc.ExecuteNonQuery();
-            }
+            int affectedRows = command.ExecuteNonQuery();
+            sqlConnection.Close();
+            return affectedRows > 0;
+        }
+        public bool DeleteIngredient(int id)
+        {
+            Connection con = new Connection();
+            SqlConnection sqlConnection = con.GetConnection();
+            SqlCommand command = new SqlCommand($"DELETE FROM Ingredients WHERE id = {id}", sqlConnection);
+            sqlConnection.Open();
+            int succesful = command.ExecuteNonQuery();
             sqlConnection.Close();
             if (succesful > 0)
             {

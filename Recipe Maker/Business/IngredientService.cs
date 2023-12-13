@@ -32,5 +32,9 @@ namespace Business
         {
             return ingredientRepository.UpdateIngredient(ingredient);
         }
+        public bool DeleteIngredient(int id)
+        {
+            return ingredientRepository.DeleteIngredient(id);
+        }
     }
 }
