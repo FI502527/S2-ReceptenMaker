@@ -1,0 +1,23 @@
+﻿@using BusinessObjects
+@model Ingredient
+@{
+    ViewData["Title"] = "Edit " + Model.Name;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Edit ingredient</h1>
+    <form asp-action="EditIngredient" asp-controller="Ingredient" method="POST">
+        <label for="name">Ingredient name:</label><br>
+        <input type="text" id="name" name="name" placeholder="Name" value="@Model.Name" required><br>
+        <label for="desc">Description:</label><br>
+        <input type="text" id="desc" name="desc" placeholder="Description" value="@Model.Description"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <br />
+    @ViewBag.Message
+    <br />
+
+    <a class="btn btn-primary" asp-action="Index" asp-controller="Ingredient">
+        Go back
+    </a>
+</div>

@@ -3,18 +3,17 @@ using Microsoft.AspNetCore.Mvc;
 using Recipe_Maker.Models;
 using Business;
 using BusinessObjects;
+using Interfaces;
 
 namespace Recipe_Maker.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly UserService _userService;
-
-        public HomeController(ILogger<HomeController> logger, UserService userService)
+        UserService _userService;
+        public HomeController(IUserRepository userRepository)
         {
-            _logger = logger;
-            _userService = userService;
+            _userService = new UserService(userRepository);
         }
 
         public IActionResult Index()

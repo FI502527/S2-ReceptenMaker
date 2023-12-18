@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Add ingredient";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Add ingredient</h1>
+    <form asp-action="AddIngredient" asp-controller="Ingredient" method="POST">
+      <label for="name">Ingredient name:</label><br>
+      <input type="text" id="name" name="name" placeholder="Name" required><br>
+      <label for="desc">Description:</label><br>
+      <input type="text" id="desc" name="desc" placeholder="Description"><br><br>
+      <input type="submit" value="Submit">
+    </form>
+    <br />
+    @ViewBag.Message
+    <br />
+
+    <a class="btn btn-primary" asp-action="Index" asp-controller="Ingredient">
+        Go back
+    </a>
+</div>
