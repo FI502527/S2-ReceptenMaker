@@ -1,19 +1,20 @@
 ﻿using Business;
 using BusinessObjects;
+using Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Recipe_Maker.Controllers
 {
     public class RecipeController : Controller
     {
-        private readonly RecipeService _recipeService;
-        public RecipeController(RecipeService recipeService)
+        RecipeService recipeService;
+        public RecipeController(IRecipeRepository recipeRepository)
         {
-            _recipeService = recipeService;
+            recipeService = new RecipeService(recipeRepository);
         }
         public IActionResult Index()
         {
-            List<Recipe> recipes = _recipeService.GetAllRecipes();
+            List<Recipe> recipes = recipeService.GetAllRecipes();
             return View(recipes);
         }
         public IActionResult Add()

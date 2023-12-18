@@ -6,7 +6,7 @@
 
 <div class="text-center">
     <h1 class="display-4">Edit ingredient</h1>
-    <form asp-action="EditIngredient" asp-controller="Ingredient" method="POST">
+    <form asp-action="EditIngredient" asp-route-id="@Model.Id" asp-controller="Ingredient" method="POST">
         <label for="name">Ingredient name:</label><br>
         <input type="text" id="name" name="name" placeholder="Name" value="@Model.Name" required><br>
         <label for="desc">Description:</label><br>

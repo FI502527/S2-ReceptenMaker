@@ -20,17 +20,13 @@ namespace Recipe_Maker.Controllers
                 {
                     ViewBag.Message = "Your ingredient has been edited!";
                 }
-                else
-                {
-                    ViewBag.Message = "Your ingredient has not been edited!";
-                }
-                if (Convert.ToBoolean(TempData["IngredientDelete"]))
+                else if (Convert.ToBoolean(TempData["IngredientDelete"]))
                 {
                     ViewBag.Message = "Your ingredient has been deleted!";
                 }
                 else
                 {
-                    ViewBag.Message = "Your ingredient has not been deleted!";
+                    ViewBag.Message = "Error no delete or edit found.";
                 }
             }
             List<Ingredient> allIngredients = ingredientService.GetAllIngredients();
@@ -72,9 +68,10 @@ namespace Recipe_Maker.Controllers
             Ingredient ingredient = ingredientService.GetIngredientById(id);
             return View(ingredient);
         }
-        public IActionResult EditIngredient(string name, string desc)
+        public IActionResult EditIngredient(int id, string name, string desc)
         {
             Ingredient ingredient = new Ingredient();
+            ingredient.SetId(id);
             ingredient.SetName(name);
             ingredient.SetDescription(desc);
             bool editCheck = ingredientService.EditIngredient(ingredient);

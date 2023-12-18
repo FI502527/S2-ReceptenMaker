@@ -96,7 +96,7 @@ namespace DAL
                 {
                     ingredient.SetId(dataReaderIngredientInfo.GetInt32(0));
                     ingredient.SetName(dataReaderIngredientInfo.GetString(1));
-                    ingredient.SetDescription(dataReaderIngredientInfo.IsDBNull(2) ? null : dataReaderIngredientInfo.GetString(3));
+                    ingredient.SetDescription(dataReaderIngredientInfo.IsDBNull(2) ? null : dataReaderIngredientInfo.GetString(2));
                 }
             }
             dataReaderIngredientInfo.Close();
