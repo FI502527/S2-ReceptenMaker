@@ -1,15 +1,25 @@
-﻿@{
+﻿@using BusinessObjects;
+@{
     ViewData["Title"] = "Add recipe";
 }
-
+@model List<Ingredient>
 <div class="text-center">
     <h1 class="display-4">Add recipe</h1>
     <form asp-action="AddRecipe" asp-controller="Recipe" method="POST">
-      <label for="RecipeName">Recipe name:</label><br>
-      <input type="text" id="RecipeName" name="RecipeName" value="Name" required><br>
-      <label for="desc">Description:</label><br>
-      <input type="text" id="desc" name="desc" value="Description"><br><br>
-      <input type="submit" value="Submit">
+        <label for="RecipeName">Recipe name:</label><br>
+        <input type="text" id="RecipeName" name="RecipeName" placeholder="Name" required><br>
+        <label for="desc">Description:</label><br>
+        <input type="text" id="Description" name="Description" placeholder="Description"><br><br>
+        <div class="ingredient-scroll">
+            @foreach(Ingredient ingredient in Model)
+            {
+                @Html.CheckBox(ingredient.Id.ToString())
+                @ingredient.Name
+                <br />
+            }
+        </div>
+        <br />
+        <input type="submit" value="Submit">
     </form>
     <br />
     @ViewBag.Message

@@ -12,6 +12,7 @@ namespace BusinessObjects
         public string Name { get; private set; }
         public int Owner { get; private set; }
         public List<Ingredient> Ingredients { get; private set; }
+        public string Description { get; private set; }
         public void AddIngredients(Ingredient ingredient)
         {
             if (Ingredients == null)
@@ -31,6 +32,14 @@ namespace BusinessObjects
         public void SetId(int id)
         {
             Id = id;
+        }
+        public void SetDesc(string desc)
+        {
+            Description = desc;
+        }
+        public void SetIngredients(List<Ingredient> ingredients)
+        {
+            Ingredients = ingredients;
         }
     }
 }
