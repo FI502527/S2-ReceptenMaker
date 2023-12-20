@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test
+namespace Test.DummyRepos
 {
     public class TestUserRepository : IUserRepository
     {
@@ -15,7 +15,7 @@ namespace Test
             User user = new User(1, name, 1, "abc");
             return user;
         }
-        public List<User> LoadAllUsers() 
+        public List<User> LoadAllUsers()
         {
             List<User> users = new List<User>();
             User user1 = new User(1, "tim", 1, "abc");

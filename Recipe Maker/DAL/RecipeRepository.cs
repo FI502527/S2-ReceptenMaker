@@ -12,6 +12,7 @@ namespace DAL
 {
     public class RecipeRepository : IRecipeRepository
     {
+
         public List<Recipe> LoadAllRecipes()
         {
             Connection conn = new();
@@ -28,12 +29,6 @@ namespace DAL
                     recipeObject.SetId(dataReaderRecipes.GetInt32(0));
                     recipeObject.SetName(dataReaderRecipes.GetString(1));
                     recipeObject.SetOwner(dataReaderRecipes.GetInt32(2));
-                    RecipeIngredientRelation recipeIngredients = GetRecipeIngredients(recipeObject.Id);
-                    foreach(int ingredientId in recipeIngredients.IngredientId)
-                    {
-                        Ingredient ingredient = GetIngredientById(ingredientId);
-                        recipeObject.AddIngredients(ingredient);
-                    }
                     allRecipes.Add(recipeObject);
                 }
             }
@@ -82,27 +77,7 @@ namespace DAL
             sqlConnection.Close();
             return recipe;
         }
-        public Ingredient GetIngredientById(int id)
-        {
-            Connection conn = new();
-            SqlConnection sqlConnection = conn.GetConnection();
-            SqlCommand ingredientInfo = new SqlCommand("SELECT * FROM Ingredients WHERE id = " + id + ";", sqlConnection);
-            sqlConnection.Open();
-            SqlDataReader dataReaderIngredientInfo = ingredientInfo.ExecuteReader();
-            Ingredient ingredient = new Ingredient();
-            if (dataReaderIngredientInfo.HasRows)
-            {
-                while (dataReaderIngredientInfo.Read())
-                {
-                    ingredient.SetId(dataReaderIngredientInfo.GetInt32(0));
-                    ingredient.SetName(dataReaderIngredientInfo.GetString(1));
-                    ingredient.SetDescription(dataReaderIngredientInfo.IsDBNull(2) ? null : dataReaderIngredientInfo.GetString(2));
-                }
-            }
-            dataReaderIngredientInfo.Close();
-            sqlConnection.Close();
-            return ingredient;
-        }
+        
 
     }
 }

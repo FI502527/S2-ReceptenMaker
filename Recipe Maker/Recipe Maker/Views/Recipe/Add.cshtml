@@ -13,8 +13,8 @@
         <div class="ingredient-scroll">
             @foreach(Ingredient ingredient in Model)
             {
-                @Html.CheckBox(ingredient.Id.ToString())
-                @ingredient.Name
+                <input type="checkbox" id="@ingredient.Id" name="@ingredient.Id" value="@ingredient.Name" />
+                @ingredient.Name;
                 <br />
             }
         </div>

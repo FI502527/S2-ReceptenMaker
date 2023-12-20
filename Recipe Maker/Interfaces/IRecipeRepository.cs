@@ -12,6 +12,5 @@ namespace Interfaces
         public List<Recipe> LoadAllRecipes();
         public RecipeIngredientRelation GetRecipeIngredients(int id);
         public Recipe GetRecipeById(int id);
-        public Ingredient GetIngredientById(int id);
     }
 }

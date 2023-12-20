@@ -1,7 +1,8 @@
 using Business;
 using Interfaces;
+using Test.DummyRepos;
 
-namespace Test
+namespace Test.UnitTests
 {
     [TestClass]
     public class UserTests

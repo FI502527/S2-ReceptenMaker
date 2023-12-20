@@ -11,7 +11,7 @@ namespace Recipe_Maker.Controllers
         IngredientService ingredientService;
         public RecipeController(IRecipeRepository recipeRepository, IIngredientRepository ingredientRepository)
         {
-            recipeService = new RecipeService(recipeRepository);
+            recipeService = new RecipeService(recipeRepository, ingredientRepository);
             ingredientService = new IngredientService(ingredientRepository);
         }
         public IActionResult Index()
@@ -29,7 +29,7 @@ namespace Recipe_Maker.Controllers
         {
             Recipe recipe = new Recipe();
             List<Ingredient> ingredients = new List<Ingredient>();
-            foreach(string key in form.Keys)
+            foreach(var key in form.Keys)
             {
                 string value = form[key];
                 switch (key)
@@ -43,11 +43,8 @@ namespace Recipe_Maker.Controllers
                     case "__RequestVerificationToken":
                         break;
                     default:
-                        if (value == "true")
-                        {
-                            Ingredient ingredient = ingredientService.GetIngredientById(int.Parse(key));
-                            ingredients.Add(ingredient);
-                        }
+                        Ingredient ingredient = ingredientService.GetIngredientById(int.Parse(key));
+                        ingredients.Add(ingredient);
                         break;
                 }
             }
