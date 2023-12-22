@@ -72,14 +72,7 @@ namespace DAL
                 succesful = commandWithoutDesc.ExecuteNonQuery();
             }
             sqlConnection.Close();
-            if (succesful > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return succesful > 0;
         }
         public bool UpdateIngredient(Ingredient ingredient)
         {

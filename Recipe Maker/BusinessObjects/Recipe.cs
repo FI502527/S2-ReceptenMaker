@@ -41,5 +41,16 @@ namespace BusinessObjects
         {
             Ingredients = ingredients;
         }
+        public bool DescriptionCheck()
+        {
+            if (string.IsNullOrEmpty(Description))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

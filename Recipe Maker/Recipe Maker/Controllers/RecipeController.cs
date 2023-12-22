@@ -17,6 +17,17 @@ namespace Recipe_Maker.Controllers
         public IActionResult Index()
         {
             List<Recipe> recipes = recipeService.GetAllRecipes();
+            if (TempData.ContainsKey("NewRecipe"))
+            {
+                if (Convert.ToBoolean(TempData["NewRecipe"]))
+                {
+                    ViewBag.Message = "Your recipe has been added!";
+                }
+                else
+                {
+                    ViewBag.Message = "Error no recipe has been added.";
+                }
+            }
             return View(recipes);
         }
         public IActionResult Add()
@@ -49,7 +60,8 @@ namespace Recipe_Maker.Controllers
                 }
             }
             recipe.SetIngredients(ingredients);
-            return RedirectToAction("Add");
+            TempData["NewRecipe"] = recipeService.AddNewRecipe(recipe);
+            return RedirectToAction("Index");
         }
     }
 }

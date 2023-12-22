@@ -77,7 +77,56 @@ namespace DAL
             sqlConnection.Close();
             return recipe;
         }
-        
-
+        public Recipe GetRecipeByName(string name)
+        {
+            Connection conn = new();
+            SqlConnection sqlConnection = conn.GetConnection();
+            SqlCommand recipeInfo = new SqlCommand($"SELECT * FROM Recipes WHERE name = '{name}';", sqlConnection);
+            sqlConnection.Open();
+            SqlDataReader dataReaderRecipeInfo = recipeInfo.ExecuteReader();
+            Recipe recipe = new Recipe();
+            if (dataReaderRecipeInfo.HasRows)
+            {
+                while (dataReaderRecipeInfo.Read())
+                {
+                    recipe.SetId(dataReaderRecipeInfo.GetInt32(0));
+                    recipe.SetName(dataReaderRecipeInfo.GetString(1));
+                    recipe.SetDesc(dataReaderRecipeInfo.IsDBNull(3) ? null : dataReaderRecipeInfo.GetString(3));
+                }
+            }
+            dataReaderRecipeInfo.Close();
+            sqlConnection.Close();
+            return recipe;
+        }
+        public bool AddNewRecipe(Recipe recipe)
+        {
+            Connection con = new Connection();
+            SqlConnection sqlConnection = con.GetConnection();
+            SqlCommand commandWithDesc = new SqlCommand($"INSERT INTO Recipes (name, ownerId, description) VALUES ('{recipe.Name}', 1, '{recipe.Description}');", sqlConnection);
+            SqlCommand commandWithoutDesc = new SqlCommand($"INSERT INTO Recipes (name, ownerId) VALUES ('{recipe.Name}', 1);", sqlConnection);
+            sqlConnection.Open();
+            int succesful;
+            if (recipe.DescriptionCheck())
+            {
+                succesful = commandWithDesc.ExecuteNonQuery();
+            }
+            else
+            {
+                succesful = commandWithoutDesc.ExecuteNonQuery();
+            }
+            sqlConnection.Close();
+            return succesful > 0;
+        }
+        public bool AddRelationIngredient(int recipeId, int ingredientId)
+        {
+            Connection con = new Connection();
+            SqlConnection sqlConnection = con.GetConnection();
+            SqlCommand command = new SqlCommand($"INSERT INTO RecipeIngredients (recipeId, ingredientId) VALUES ({recipeId}, {ingredientId});", sqlConnection);
+            int succesful;
+            sqlConnection.Open();
+            succesful = command.ExecuteNonQuery();
+            sqlConnection.Close();
+            return succesful > 0;
+        }
     }
 }

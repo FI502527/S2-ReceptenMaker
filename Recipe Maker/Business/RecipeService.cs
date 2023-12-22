@@ -40,5 +40,20 @@ namespace Business
             }
             return ingredients;
         }
+        public bool AddNewRecipe(Recipe recipe)
+        {
+            bool recipeStatus = recipeRepository.AddNewRecipe(recipe);
+            int receptId = GetRecipeByName(recipe.Name).Id;
+            bool status = true;
+            foreach(Ingredient ingredient in recipe.Ingredients)
+            {
+                status = recipeRepository.AddRelationIngredient(receptId, ingredient.Id);
+            }
+            return status;
+        }
+        public Recipe GetRecipeByName(string name)
+        {
+            return recipeRepository.GetRecipeByName(name);
+        }
     }
 }
