@@ -1,0 +1,53 @@
+﻿@using Recipe_Maker.Models;
+@using BusinessObjects
+@model EditModel
+@{
+    ViewData["Title"] = "Edit " + Model.Recipe.Name;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Edit recipe</h1>
+    <form asp-action="EditRecipe" asp-route-id="@Model.Recipe.Id" asp-controller="Recipe" method="POST">
+        <label for="RecipeName">Recipe name:</label><br>
+        <input type="text" id="RecipeName" name="RecipeName" placeholder="Name" value="@Model.Recipe.Name" required><br>
+        <label for="desc">Description:</label><br>
+        <input type="text" id="Description" name="Description" placeholder="Description" value="@Model.Recipe.Description"><br><br>
+        <div class="ingredient-scroll">
+            @foreach (Ingredient ingredient in Model.Ingredients)
+            {
+                List<string> checkedIngredients = new List<string>();
+                foreach (Ingredient recipeIngredient in Model.Recipe.Ingredients)
+                {
+                    if (recipeIngredient.Name == ingredient.Name)
+                    {
+                        checkedIngredients.Add(recipeIngredient.Name);
+                    }
+                }
+                if (checkedIngredients.Contains(ingredient.Name))
+                {
+                    <input type="checkbox" id="@ingredient.Id" name="@ingredient.Id" value="@ingredient.Name" checked />
+                    @ingredient.Name
+                    ;
+                    <br />
+                }
+                else
+                {
+                    <input type="checkbox" id="@ingredient.Id" name="@ingredient.Id" value="@ingredient.Name" />
+                    @ingredient.Name
+                    ;
+                    <br />
+                }
+            }
+        </div>
+        <br />
+        <input type="submit" value="Submit">
+    </form>
+    <br />
+    <br />
+    @ViewBag.Message
+    <br />
+
+    <a class="btn btn-primary" asp-action="Index" asp-controller="Ingredient">
+        Go back
+    </a>
+</div>

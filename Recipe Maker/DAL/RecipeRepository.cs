@@ -61,7 +61,7 @@ namespace DAL
         {
             Connection conn = new();
             SqlConnection sqlConnection = conn.GetConnection();
-            SqlCommand recipeInfo = new SqlCommand("SELECT * FROM Recipe WHERE id = " + id + ";", sqlConnection);
+            SqlCommand recipeInfo = new SqlCommand("SELECT * FROM Recipes WHERE id = " + id + ";", sqlConnection);
             sqlConnection.Open();
             SqlDataReader dataReaderRecipeInfo = recipeInfo.ExecuteReader();
             Recipe recipe = new Recipe();
@@ -122,6 +122,48 @@ namespace DAL
             Connection con = new Connection();
             SqlConnection sqlConnection = con.GetConnection();
             SqlCommand command = new SqlCommand($"INSERT INTO RecipeIngredients (recipeId, ingredientId) VALUES ({recipeId}, {ingredientId});", sqlConnection);
+            int succesful;
+            sqlConnection.Open();
+            succesful = command.ExecuteNonQuery();
+            sqlConnection.Close();
+            return succesful > 0;
+        }
+        public bool DeleteRelationIngredient(int recipeId, int ingredientId)
+        {
+            Connection con = new Connection();
+            SqlConnection sqlConnection = con.GetConnection();
+            SqlCommand command = new SqlCommand($"DELETE FROM RecipeIngredients WHERE recipeId = {recipeId} AND ingredientId = {ingredientId};", sqlConnection);
+            int succesful;
+            sqlConnection.Open();
+            succesful = command.ExecuteNonQuery();
+            sqlConnection.Close();
+            return succesful > 0;
+        }
+        public bool EditRecipe(Recipe recipe)
+        {
+            Connection con = new Connection();
+            SqlConnection sqlConnection = con.GetConnection();
+            SqlCommand command = new SqlCommand($"UPDATE Recipes SET name = '{recipe.Name}', description = '{recipe.Description}' WHERE id = {recipe.Id}", sqlConnection);
+            sqlConnection.Open();
+            int affectedRows = command.ExecuteNonQuery();
+            sqlConnection.Close();
+            return affectedRows > 0;
+        }
+        public bool DeleteRecipe(int id)
+        {
+            Connection con = new Connection();
+            SqlConnection sqlConnection = con.GetConnection();
+            SqlCommand command = new SqlCommand($"DELETE FROM Recipes WHERE id = {id}", sqlConnection);
+            sqlConnection.Open();
+            int affectedRows = command.ExecuteNonQuery();
+            sqlConnection.Close();
+            return affectedRows > 0;
+        }
+        public bool DeleteAllRelations(int recipeId)
+        {
+            Connection con = new Connection();
+            SqlConnection sqlConnection = con.GetConnection();
+            SqlCommand command = new SqlCommand($"DELETE FROM RecipeIngredients WHERE recipeId = {recipeId};", sqlConnection);
             int succesful;
             sqlConnection.Open();
             succesful = command.ExecuteNonQuery();

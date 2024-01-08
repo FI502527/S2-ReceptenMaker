@@ -53,7 +53,51 @@ namespace Business
         }
         public Recipe GetRecipeByName(string name)
         {
-            return recipeRepository.GetRecipeByName(name);
+            Recipe recipe = recipeRepository.GetRecipeByName(name);
+            RecipeIngredientRelation recipeIngredients = recipeRepository.GetRecipeIngredients(recipe.Id);
+            List<Ingredient> ingredientsRecipe = GetIngredientsRecipe(recipeIngredients);
+            recipe.SetIngredients(ingredientsRecipe);
+            return recipe;
+        }
+        public Recipe GetRecipeById(int id)
+        {
+            Recipe recipe = recipeRepository.GetRecipeById(id);
+            RecipeIngredientRelation recipeIngredients = recipeRepository.GetRecipeIngredients(id);
+            List<Ingredient> ingredientsRecipe = GetIngredientsRecipe(recipeIngredients);
+            recipe.SetIngredients(ingredientsRecipe);
+            return recipe;
+        }
+        public bool EditRecipe(Recipe recipe)
+        {
+            RecipeIngredientRelation oldIngredients = recipeRepository.GetRecipeIngredients(recipe.Id);
+            bool check1 = true;
+            List<int> newIngredientIds = new List<int>();
+            foreach(Ingredient ingredient in recipe.Ingredients)
+            {
+                newIngredientIds.Add(ingredient.Id);
+                if(!oldIngredients.IngredientId.Contains(ingredient.Id))
+                {
+                    check1 = recipeRepository.AddRelationIngredient(recipe.Id, ingredient.Id);
+                }
+            }
+            bool check2 = true;
+            foreach(int id in oldIngredients.IngredientId)
+            {
+                if (!newIngredientIds.Contains(id))
+                {
+                    check2 = recipeRepository.DeleteRelationIngredient(recipe.Id, id);
+                }
+            }
+            bool check3 = recipeRepository.EditRecipe(recipe);
+            if (check1 && check2 && check3) return true; 
+            else return false;
+        }
+        public bool DeleteRecipe(int id)
+        {
+            bool check1 = recipeRepository.DeleteAllRelations(id);
+            bool check2 = recipeRepository.DeleteRecipe(id);
+            if(check1 && check2) return true;
+            else return false;
         }
     }
 }
