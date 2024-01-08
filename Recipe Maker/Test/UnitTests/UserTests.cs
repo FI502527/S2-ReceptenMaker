@@ -13,11 +13,10 @@ namespace Test.UnitTests
             // Arrange
             string username = "tim";
             string password = "abc";
-
-
-            // Act
             TestUserRepository testRepo = new TestUserRepository();
             UserService userService = new UserService(testRepo);
+
+            // Act
             bool check = userService.LoginCheck(username, password);
 
             // Assert
@@ -29,11 +28,10 @@ namespace Test.UnitTests
             // Arrange
             string username = "tim";
             string password = "abc1";
-
-
-            // Act
             TestUserRepository testRepo = new TestUserRepository();
             UserService userService = new UserService(testRepo);
+
+            // Act
             bool check = userService.LoginCheck(username, password);
 
             // Assert
@@ -44,12 +42,12 @@ namespace Test.UnitTests
         {
             // Arrange
             string name = "tim";
-
-            // Act
             TestUserRepository testRepo = new TestUserRepository();
             UserService userService = new UserService(testRepo);
-            User user = userService.GetUserByName(name);
             User desiredUser = new User(1, name, 1, "abc");
+
+            // Act
+            User user = userService.GetUserByName(name);
 
             // Assert
             Assert.AreEqual(desiredUser.Id, user.Id);
@@ -62,10 +60,10 @@ namespace Test.UnitTests
         {
             // Arrange
             int amountOfUsers = 3;
-
-            // Act
             TestUserRepository testRepo = new TestUserRepository();
             UserService userService = new UserService(testRepo);
+
+            // Act
             List<User> users = userService.GetAllUsers();
             int listUsers = users.Count();
 
@@ -77,10 +75,10 @@ namespace Test.UnitTests
         {
             // Arrange
             User user = new User(1, "tim", 1, "abc");
-
-            // Act
             TestUserRepository testRepo = new TestUserRepository();
             UserService userService = new UserService(testRepo);
+
+            // Act
             bool addTest = userService.AddUser(user);
 
             // Assert
